@@ -11,7 +11,7 @@ function getURL(
   arch_candidates: Array<string>
 ): string {
   core.debug(`process.platform is: ${process.platform}`);
-  core.debug(`version.assets: ${version.assets.join('\n')}`);
+  core.debug(`version.assets: ${JSON.stringify(version.assets, null, 2)}`);
   const assets_for_platform: vi.AssetInfo[] = version.assets
     .filter((a) => a.platform === process.platform && a.filetype === 'archive')
     .sort();
