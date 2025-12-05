@@ -61,8 +61,6 @@ function extractArchFrom(filename: string): string {
     return 'x86_64';
   } else if (filename.match(/x64/)) {
     return 'x86_64';
-  } else if (filename.match(/universal/)) {
-    return 'x86_64';
   } else if (filename.match(/x86/)) {
     return 'x86';
   } else if (filename.match(/i386/)) {
@@ -71,6 +69,8 @@ function extractArchFrom(filename: string): string {
     return 'aarch64';
   } else if (filename.match(/aarch64/)) {
     return 'aarch64';
+  } else if (filename.match(/universal/)) {
+    return 'universal';
   } else {
     return '';
   }
@@ -207,6 +207,9 @@ export function getLatestMatching(
 }
 
 export function getArchCandidates(use_32bits: boolean): string[] {
+  if (process.platform === 'darwin') {
+    return ['universal'];
+  }
   if (process.arch === 'x64') {
     return use_32bits ? ['x86'] : ['x86_64', 'x86'];
   } else if (process.arch === 'arm64') {
