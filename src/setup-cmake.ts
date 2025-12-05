@@ -10,6 +10,7 @@ function getURL(
   version: vi.VersionInfo,
   arch_candidates: Array<string>
 ): string {
+  // core.debug(`version.assets: ${JSON.stringify(version.assets, null, 2)}`);
   const assets_for_platform: vi.AssetInfo[] = version.assets
     .filter((a) => a.platform === process.platform && a.filetype === 'archive')
     .sort();
@@ -25,9 +26,9 @@ function getURL(
     }
   }
   if (matching_assets == undefined) {
-    // If there are no x86_64 or x86 packages then give up.
+    // If there are no packages of the right platform + arch then give up.
     throw new Error(
-      `Could not find ${process.platform} asset for cmake version ${version.name}`
+      `Could not find ${process.platform}-${process.arch} asset for cmake version ${version.name}`
     );
   }
   core.debug(
