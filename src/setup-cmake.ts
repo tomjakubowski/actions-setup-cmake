@@ -10,6 +10,7 @@ function getURL(
   version: vi.VersionInfo,
   arch_candidates: Array<string>
 ): string {
+  core.debug(`process.platform is: ${process.platform}`);
   const assets_for_platform: vi.AssetInfo[] = version.assets
     .filter((a) => a.platform === process.platform && a.filetype === 'archive')
     .sort();
