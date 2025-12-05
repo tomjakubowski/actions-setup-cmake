@@ -205,3 +205,13 @@ export function getLatestMatching(
   }
   return getLatest(matching_versions);
 }
+
+export function getArchCandidates(use_32bits: boolean): string[] {
+  if (process.arch === 'x64') {
+    return use_32bits ? ['x86'] : ['x86_64', 'x86'];
+  } else if (process.arch === 'arm64') {
+    return use_32bits ? ['arm'] : ['aarch64', 'arm'];
+  } else {
+    throw new Error(`Unsupported value of process.arch: ${process.arch}`);
+  }
+}
